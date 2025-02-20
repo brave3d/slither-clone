@@ -1,0 +1,24 @@
+{
+  "name": "slither-clone",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "build": "node build.js",
+    "prod": "npm run kill-server && npm run build && cd dist && npm install && node server.js",
+    "kill-server": "node scripts/kill-server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "fs-extra": "^11.3.0",
+    "javascript-obfuscator": "^4.1.1"
+  }
+}

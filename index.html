@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slither Clone</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #000;
+        }
+        canvas {
+            display: block;
+        }
+        #startScreen {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            text-align: center;
+            z-index: 100;
+        }
+        #startScreen button {
+            margin: 10px;
+            padding: 10px 20px;
+            font-size: 16px;
+        }
+        #configButton {
+            position: absolute;
+            top: 20px;
+            left: 120px;
+            z-index: 100;
+            padding: 5px 10px;
+            cursor: pointer;
+        }
+        #configMenu {
+            display: none;
+            position: absolute;
+            top: 60px;
+            left: 20px;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 5px;
+            color: white;
+            z-index: 100;
+        }
+        .config-item {
+            margin: 10px 0;
+        }
+        .config-item label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .death-message {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: red;
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            z-index: 1000;
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div id="startScreen">
+        <h1>Choose Game Mode</h1>
+        <div id="connectionStatus" style="display: none; color: yellow;">
+            Connecting to server...
+        </div>
+        <button onclick="startGame('normal')">Multiplayer Mode</button>
+        <button onclick="startGame('bot')">Bot Mode</button>
+    </div>
+
+    <button id="configButton">⚙️ Config</button>
+    <div id="configMenu">
+        <div class="config-item">
+            <label>
+                <input type="checkbox" id="coloredFood">
+                Colored Food Dots
+            </label>
+        </div>
+        <div class="config-item">
+            <label>
+                <input type="checkbox" id="showGrid">
+                Show Grid
+            </label>
+        </div>
+        <div class="config-item">
+            <label for="foodSize">Food Size: <span id="foodSizeValue">2</span></label>
+            <input type="range" id="foodSize" min="2" max="10" value="2">
+        </div>
+        <div class="config-item">
+            <label for="botCount">Number of Bots: <span id="botCountValue">100</span></label>
+            <input type="range" id="botCount" min="50" max="300" value="100">
+        </div>
+        <div class="config-item">
+            <label for="playerSpeed">Player Speed: <span id="playerSpeedValue">1.5</span></label>
+            <input type="range" id="playerSpeed" min="1" max="4" step="0.1" value="1.5">
+        </div>
+        <div class="config-item">
+            <label for="botSpeed">Bot Speed: <span id="botSpeedValue">1.0</span></label>
+            <input type="range" id="botSpeed" min="1" max="4" step="0.1" value="1.0">
+        </div>
+        <div class="config-item">
+            <label for="headTurnSpeed">Head Turn Speed: <span id="headTurnSpeedValue">0.05</span></label>
+            <input type="range" id="headTurnSpeed" min="0.01" max="0.2" step="0.01" value="0.05">
+        </div>
+        <div class="config-item">
+            <label for="eyeTurnSpeed">Eye Turn Speed: <span id="eyeTurnSpeedValue">0.3</span></label>
+            <input type="range" id="eyeTurnSpeed" min="0.01" max="0.3" step="0.01" value="0.3">
+        </div>
+        <div class="config-item">
+            <label>
+                <input type="checkbox" id="showLaser">
+                Show Laser (Shift)
+            </label>
+        </div>
+        <div class="config-item">
+            <label>
+                <input type="checkbox" id="safeWall">
+                Safe Wall (W)
+            </label>
+        </div>
+        <div class="config-item">
+            <label for="foodCount">Food Count: <span id="foodCountValue">500</span></label>
+            <input type="range" id="foodCount" min="100" max="10000" step="50" value="500">
+        </div>
+    </div>
+
+    <canvas id="gameCanvas" style="display:none;"></canvas>
+
+    <script src="js/config.js"></script>
+    <script src="js/snake.js"></script>
+    <script src="js/food.js"></script>
+    <script src="js/game.js"></script>
+</body>
+</html> 
