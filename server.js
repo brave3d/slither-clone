@@ -309,8 +309,8 @@ process.on('SIGINT', () => {
     });
 });
 
-// Start server on port 8080
-const PORT = process.env.PORT || 8080;
+// Start server on port 80 for production, 8080 for development
+const PORT = process.env.NODE_ENV === 'production' ? 80 : 8080;
 server.listen(PORT, () => {
     console.log(`Server running on port ${PORT}`);
     gameServer = new GameServer(server);

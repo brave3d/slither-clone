@@ -8,14 +8,13 @@ function startGame(mode) {
         // Get the current hostname, but use the ngrok URL if present
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
         const host = window.location.hostname;
-        const port = window.location.port;
         
         // Construct WebSocket URL
         let wsUrl;
         if (host.includes('ngrok')) {
             wsUrl = `${protocol}//${host}`;
         } else {
-            wsUrl = `${protocol}//${host}:${port || '8080'}`;
+            wsUrl = `${protocol}//${host}:80`; // Force port 80 for production
         }
         
         // Create temporary WebSocket to test connection
@@ -892,7 +891,6 @@ class Game {
         // Get the current hostname, but use the ngrok URL if present
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
         const host = window.location.hostname;
-        const port = window.location.port;
         
         // Construct WebSocket URL
         let wsUrl;
@@ -901,7 +899,7 @@ class Game {
             wsUrl = `${protocol}//${host}`;
         } else {
             // For local development
-            wsUrl = `${protocol}//${host}:${port || '8080'}`;
+            wsUrl = `${protocol}//${host}:80`; // Force port 80 for production
         }
         
         console.log('Connecting to:', wsUrl);
