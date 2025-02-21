@@ -5,16 +5,19 @@ function startGame(mode) {
         connectionStatus.style.color = 'yellow';
         connectionStatus.textContent = 'Connecting to server...';
         
-        // Get the current hostname, but use the ngrok URL if present
+        // Get the current hostname and determine if we're in development
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
         const host = window.location.hostname;
+        const isDev = host === 'localhost' || host === '127.0.0.1';
         
-        // Construct WebSocket URL
+        // Construct WebSocket URL based on environment
         let wsUrl;
         if (host.includes('ngrok')) {
-            wsUrl = `${protocol}//${host}`;
+            wsUrl = `${protocol}//${host}`; // ngrok URLs
+        } else if (isDev) {
+            wsUrl = `${protocol}//${host}:8080`; // Local development
         } else {
-            wsUrl = `${protocol}//${host}:80`; // Force port 80 for production
+            wsUrl = `${protocol}//${host}`; // Production (default port)
         }
         
         // Create temporary WebSocket to test connection
@@ -888,18 +891,18 @@ class Game {
     }
 
     setupMultiplayer() {
-        // Get the current hostname, but use the ngrok URL if present
         const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
         const host = window.location.hostname;
+        const isDev = host === 'localhost' || host === '127.0.0.1';
         
-        // Construct WebSocket URL
+        // Construct WebSocket URL based on environment
         let wsUrl;
         if (host.includes('ngrok')) {
-            // For ngrok URLs, don't include port
-            wsUrl = `${protocol}//${host}`;
+            wsUrl = `${protocol}//${host}`; // ngrok URLs
+        } else if (isDev) {
+            wsUrl = `${protocol}//${host}:8080`; // Local development
         } else {
-            // For local development
-            wsUrl = `${protocol}//${host}:80`; // Force port 80 for production
+            wsUrl = `${protocol}//${host}`; // Production (default port)
         }
         
         console.log('Connecting to:', wsUrl);
