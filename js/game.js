@@ -589,7 +589,7 @@ class Game {
     }
 
     draw() {
-        this.ctx.fillStyle = '#000000';
+        this.ctx.fillStyle = '#121212';
         this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
 
         // Save the context state before applying transformations
@@ -680,20 +680,28 @@ class Game {
         const offsetX = this.player.x % gridSize;
         const offsetY = this.player.y % gridSize;
 
+        // Make grid lines a lighter color
         this.ctx.strokeStyle = '#222222';
         this.ctx.lineWidth = 1;
 
-        for(let x = -offsetX; x < this.canvas.width; x += gridSize) {
+        // Calculate extra grid cells needed based on zoom level
+        const extraCells = Math.ceil(this.canvas.width / (gridSize * this.scale));
+        const visibleWidth = this.canvas.width / this.scale;
+        const visibleHeight = this.canvas.height / this.scale;
+
+        // Draw vertical lines
+        for(let x = -offsetX - (extraCells * gridSize); x < visibleWidth + (extraCells * gridSize); x += gridSize) {
             this.ctx.beginPath();
-            this.ctx.moveTo(x, 0);
-            this.ctx.lineTo(x, this.canvas.height);
+            this.ctx.moveTo(x, -extraCells * gridSize);
+            this.ctx.lineTo(x, visibleHeight + (extraCells * gridSize));
             this.ctx.stroke();
         }
 
-        for(let y = -offsetY; y < this.canvas.height; y += gridSize) {
+        // Draw horizontal lines
+        for(let y = -offsetY - (extraCells * gridSize); y < visibleHeight + (extraCells * gridSize); y += gridSize) {
             this.ctx.beginPath();
-            this.ctx.moveTo(0, y);
-            this.ctx.lineTo(this.canvas.width, y);
+            this.ctx.moveTo(-extraCells * gridSize, y);
+            this.ctx.lineTo(visibleWidth + (extraCells * gridSize), y);
             this.ctx.stroke();
         }
     }
