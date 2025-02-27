@@ -17,7 +17,7 @@ function startGame(mode) {
         } else if (isDev) {
             wsUrl = `${protocol}//${host}:8080`; // Local development
         } else {
-            wsUrl = `${protocol}//${host}`; // Production (default port)
+            wsUrl = `${protocol}//${host}:80`; // Production with explicit port 80
         }
         
         // Create temporary WebSocket to test connection
@@ -910,7 +910,7 @@ class Game {
         } else if (isDev) {
             wsUrl = `${protocol}//${host}:8080`; // Local development
         } else {
-            wsUrl = `${protocol}//${host}`; // Production (default port)
+            wsUrl = `${protocol}//${host}:80`; // Production with explicit port 80
         }
         
         console.log('Connecting to:', wsUrl);
